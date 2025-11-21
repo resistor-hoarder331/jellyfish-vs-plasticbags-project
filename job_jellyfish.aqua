@@ -1,0 +1,27 @@
+#!/bin/bash -l
+
+#PBS -N jellyfish_training
+#PBS -l select=1:ncpus=10:mem=256gb:ngpus=3:gpu_id=H100
+#PBS -l walltime=20:00:00
+#PBS -j oe
+
+# Move to the directory where your python script lives
+cd /home/jacobe5/Model1
+
+# First check what modules are available on your system
+# Run 'module avail' on the login node to see available modules
+# For now, we'll skip modules and rely on conda for everything
+
+# Initialize conda properly
+source /home/jacobe5/miniconda3/etc/profile.d/conda.sh
+
+# Activate your environment
+conda activate JellyfishModel
+
+# Verify environment is activated
+echo "Active conda environment: $CONDA_DEFAULT_ENV"
+which python
+python --version
+
+# Run your script
+python pytorch_model_k-fold.py
